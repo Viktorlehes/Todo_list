@@ -3,19 +3,31 @@ let todoItems = [];
 function writetodo(array) {
     const node = document.createElement("li");
 
-    while (node.firstChild) {
-       node.removeChild(node.first);
-    }
-
-    array.forEach(todo => {
+    array.forEach((todo, index) => {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+        console.log(index)
         const tasks = document.querySelector('#tasks');
         node.appendChild(document.createTextNode(todo.text));
         tasks.appendChild(node);
-        console.log(node.firstChild.data)
+        //add button
         let btn = document.createElement('button');
-        btn.type = "submit"
-        btn.id = "remove"
-        document.
+        btn.innerHTML = "Done!";
+        btn.type = "submit";
+        btn.className = 'remove'
+        btn.id = Date.now();
+
+        btn.addEventListener('click', () => {
+            console.log(todo)
+            array.splice(index)
+            return array
+        })
+        
+        if (array[index].button == false){
+            tasks.insertAdjacentElement("beforeend", btn)
+            array[index].button = (true)
+        }   
     })
 }
 
@@ -23,7 +35,8 @@ function addTodo(text) {
     const todo = {
     text,
     checked: false,
-    id:  Date.now()
+    id:  Date.now(),
+    button: false
     };
 
     todoItems.push(todo);
